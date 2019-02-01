@@ -15,16 +15,27 @@ class App extends Component {
         username: 'morty',
         showPersons: false
     };
-    //teken from https://medium.com/developers-writing/fibonacci-sequence-algorithm-in-javascript-b253dc7e320e
-    fibonacci = (num, memo) => {
-        memo = memo || {};
 
-        if (memo[num]) return memo[num];
-        if (num <= 1) return 1;
 
-        return memo[num] = this.fibonacci(num - 1, memo) + this.fibonacci(num - 2, memo);
+
+    nameChangedHandler = (event, id) => {
+        const personIndex = this.state.persons.findIndex(p => {
+            return p.id === id;
+        });
+
+        const person = {
+            ...this.state.persons[personIndex]
+        };
+
+        // const person = Object.assign({}, this.state.persons[personIndex]);
+
+        person.name = event.target.value;
+
+        const persons = [...this.state.persons];
+        persons[personIndex] = person;
+
+        this.setState({persons: persons});
     };
-
 
     deletePersonHandler = (personIndex) => {
         const persons = [...this.state.persons];
@@ -52,6 +63,7 @@ class App extends Component {
                             name={person.name}
                             age={person.age}
                             key={person.id}
+                            changed={(event) => this.nameChangedHandler(event, person.id)}
                         />
                     })}
                 </div>
