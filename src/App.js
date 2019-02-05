@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
+import styles from './App.scss';
 import uuidv4 from 'uuid/v4';
 import Person from './Person/Person';
-import './App.scss';
 
 class App extends Component {
 
@@ -65,7 +65,7 @@ class App extends Component {
         }
 
         return (
-            <div className="App">
+            <div className={styles.App}>
                 <h1>Hello i'm a robot</h1>
                 <p>this is looking good</p>
                 <button onClick={this.togglePersonsHandler}>Switch name</button>
