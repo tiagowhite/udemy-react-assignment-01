@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Radium, {StyleRoot} from 'radium';
 import uuidv4 from 'uuid/v4';
 import Person from './Person/Person';
 import './App.scss';
@@ -7,7 +8,6 @@ class App extends Component {
 
     state = {
         persons: [
-
             {id: uuidv4(), name: 'Isaac', age: 23},
             {id: uuidv4(), name: 'Isobel', age: 47},
             {id: uuidv4(), name: 'Ferdinand', age: 18}
@@ -15,7 +15,6 @@ class App extends Component {
         username: 'morty',
         showPersons: false
     };
-
 
 
     nameChangedHandler = (event, id) => {
@@ -26,9 +25,7 @@ class App extends Component {
         const person = {
             ...this.state.persons[personIndex]
         };
-
         // const person = Object.assign({}, this.state.persons[personIndex]);
-
         person.name = event.target.value;
 
         const persons = [...this.state.persons];
@@ -52,6 +49,20 @@ class App extends Component {
 
     render() {
 
+        const style = {
+            backgroundColor: 'green',
+            color: 'white',
+            font: 'inherit',
+            border: '1px solid blue',
+            padding: '8px',
+            cursor: 'pointer',
+            ':hover': {
+                backgroundColor: 'lightgreen',
+                color: 'black'
+            }
+        };
+
+
         let persons = null;
 
         if (this.state.showPersons) {
@@ -67,18 +78,25 @@ class App extends Component {
                         />
                     })}
                 </div>
-            )
+            );
+            style.backgroundColor = 'red';
+            style[':hover'] = {
+                backgroundColor: 'lightred',
+                color: 'black'
+            }
         }
 
         return (
-            <div className="App">
-                <h1>Hello i'm a robot</h1>
-                <p>this is looking good</p>
-                <button onClick={this.togglePersonsHandler}>Switch name</button>
-                {persons}
-            </div>
+            <StyleRoot>
+                <div className="App">
+                    <h1>Hello i'm a robot</h1>
+                    <p>this is looking good</p>
+                    <button style={style} onClick={this.togglePersonsHandler}>Switch name</button>
+                    {persons}
+                </div>
+            </StyleRoot>
         );
     }
 }
 
-export default App;
+export default Radium(App);
