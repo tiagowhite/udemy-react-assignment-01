@@ -1,0 +1,17 @@
+.Person {
+  width: 60%;
+  margin: auto;
+  padding: 10vh;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  p {
+    background: rgb(199, 23, 23);
+
+    &:hover {
+      background: rgb(228, 49, 49);
+    }
+  }
+}
