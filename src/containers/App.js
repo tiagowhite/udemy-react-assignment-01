@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import styles from './App.scss';
-import uuidv4 from 'uuid/v4';
-import Person from './Person/Person';
+import uuid from 'uuid/v4';
+import Persons from "../components/Persons/Persons";
+import Cockpit from "../components/Cockpit/Cockpit";
 
 class App extends Component {
 
     state = {
         persons: [
-            {id: uuidv4(), name: 'Isaac', age: 23},
-            {id: uuidv4(), name: 'Isobel', age: 47},
-            {id: uuidv4(), name: 'Ferdinand', age: 18}
+            {id: uuid(), name: 'Isaac', age: 23},
+            {id: uuid(), name: 'Isobel', age: 47},
+            {id: uuid(), name: 'Ferdinand', age: 18}
         ],
         username: 'morty',
         showPersons: false
@@ -42,33 +43,27 @@ class App extends Component {
     togglePersonsHandler = () => {
         const doesshow = this.state.showPersons;
         this.setState({showPersons: !doesshow});
-        console.log(uuidv4());
     };
 
 
     render() {
         let persons = null;
         if (this.state.showPersons) {
-            persons = (
-                <div>
-                    {this.state.persons.map((person, index) => {
-                        return <Person
-                            click={() => this.deletePersonHandler(index)}
-                            name={person.name}
-                            age={person.age}
-                            key={person.id}
-                            changed={(event) => this.nameChangedHandler(event, person.id)}
-                        />
-                    })}
-                </div>
-            );
         }
+
+        persons = (
+            <Persons
+                persons={this.state.persons}
+                clicked={this.deletePersonHandler}
+                changed={this.nameChangedHandler}/>
+        );
 
         return (
             <div className={styles.App}>
-                <h1>Hello i'm a robot</h1>
-                <p>this is looking good</p>
-                <button onClick={this.togglePersonsHandler}>Switch name</button>
+                <Cockpit
+                    showPersons={this.state.showPersons}
+                    persons={this.state.persons}
+                    clicked={this.togglePersonsHandler}/>
                 {persons}
             </div>
         );
